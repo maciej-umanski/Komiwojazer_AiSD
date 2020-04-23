@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include <winbase.h>
+#include <windows.h>
 #include <locale.h>
 #include <math.h>
 
@@ -290,6 +290,7 @@ float dlugosc(int x1,int y1,int x2,int y2){
 }
 
 void komiwojazer(struct list_node *head, int liczba_punktow){
+    DWORD start = GetTickCount();
     system("cls");
     float lengthWay = 0;
     struct list_node *current_outP;
@@ -319,8 +320,10 @@ void komiwojazer(struct list_node *head, int liczba_punktow){
         current_outP = current_inP;
         lengthWay = lengthWay+min;
     }
+    double timer = (GetTickCount() - start)/1000.0;
     pop_by_No(&head, current_outP -> No);
     printf("\nMinimalna długość ścieżki wynosi: %lf\n", lengthWay);
+    printf("\nCzas wykonania algorytmu wynosi: %.2lf sekund.\n", timer);
     printf("\nWciśnij '1' aby kontynuować\n");
     input(1,1);
     system("cls");
