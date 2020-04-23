@@ -2,8 +2,8 @@
 
 - Przedstawienie kroków pracy algorytmu.
 - Pomiar czasu pracy algorytmu. // ZROBIONE
-- Zapis wyników do pliku
-- Przedstawienie ilości wykonywanych operacji
+- Zapis wyników do pliku // ZROBIONE
+- Przedstawienie ilości wykonywanych operacji // ZROBIONE
 
 # 1 Kamień milowy - gotowe
 - Możliwość podania ilości i współrzędnych punktów.
