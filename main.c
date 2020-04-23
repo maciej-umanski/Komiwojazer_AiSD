@@ -22,10 +22,11 @@ void losuj_punkty(struct list_node **head, int liczba_punktow);
 void zapisz_do_pliku(struct list_node *head);
 void zapisz_do_pliku_wynik(float *result, int *counter_1, int *counter_2, int *counter_3, double *timer);
 void wyswietl_punkty(struct list_node *head);
-int wczytaj_z_pliku(struct list_node **head);
+int wczytaj_z_pliku(struct list_node **head, char nazwa[]);
 void wprowadz_punkty(struct list_node **head, int liczba_punktow);
 float dlugosc(int x1,int y1,int x2,int y2);
 void komiwojazer(struct list_node *head, int liczba_punktow, int *counter_1, int *counter_2, int *counter_3, float *lengthWay, double *timer);
+void komiwojazer_example(struct list_node *head, float *lengthWay);
 
 
 int main() {
@@ -41,11 +42,12 @@ int main() {
         printf("1. Wprowadzanie punktów samodzielnie.\n");
         printf("2. Losowanie punktów.\n");
         printf("3. Wczytywanie punktów z pliku.\n");
-        printf("4. Zakończ program.\n");
+        printf("4. Przedstawienie pracy algorytmu.\n");
+        printf("5. Zakończ program.\n");
 
-        switch (input(1,4)) {
+        switch (input(1,5)) {
             default:
-            case 4: {
+            case 5: {
                 return 0;
             }
             case 1: {
@@ -65,12 +67,20 @@ int main() {
                 break;
             }
             case 3:{
-                if (wczytaj_z_pliku(&head) != 0){
+                if (wczytaj_z_pliku(&head, "punkty.txt") != 0){
                     break;
                 }
                 wyswietl_punkty(head);
                 komiwojazer(head,list_size(head), counter_1, counter_2, counter_3, lengthWay, timer);
                 zapisz_do_pliku_wynik(lengthWay, counter_1, counter_2, counter_3, timer);
+                break;
+            }
+            case 4:{
+                if (wczytaj_z_pliku(&head, "example.txt") != 0){
+                    break;
+                }
+                wyswietl_punkty(head);
+                komiwojazer_example(head, lengthWay);
                 break;
             }
         }
@@ -265,10 +275,10 @@ void zapisz_do_pliku_wynik(float *result, int *counter_1, int *counter_2, int *c
 }
 
 
-int wczytaj_z_pliku(struct list_node **head){
+int wczytaj_z_pliku(struct list_node **head, char nazwa[]){
     FILE *file;
     system("cls");
-    file = fopen("punkty.txt", "r");
+    file = fopen(nazwa, "r");
     if (file == NULL) {
         printf("Wystąpił błąd podczas próby otwarcia pliku z punktami lub plik nie istnieje\n");
         Sleep(2000);
@@ -366,11 +376,68 @@ void komiwojazer(struct list_node *head, int liczba_punktow, int *counter_1, int
     *timer = (GetTickCount() - start)/1000.0;
     pop_by_No(&head, current_outP -> No);
     printf("\nSzczegóły pracy algorytmu:\n");
-    printf("\nMinimalna długość ścieżki: %lf\n", *lengthWay);
+    printf("\nMinimalna ogległość między miastami: %lf\n", *lengthWay);
     printf("Ilość zmian punktu: %d razy\n", *counter_1);
-    printf("Długość punktu została obliczona %d razy\n", *counter_2);
+    printf("Odległość między miastami została obliczona %d razy\n", *counter_2);
     printf("Ilość wywołań pętli pośredniej: %d razy\n", *counter_3);
     printf("Czas wykonania algorytmu wynosi: %.2lf s.\n", *timer);
+    printf("\nWciśnij '1' aby kontynuować\n");
+    input(1,1);
+    system("cls");
+}
+
+void komiwojazer_example(struct list_node *head, float *lengthWay){
+    system("cls");
+    printf("Przedstawienie działania algorytmu na podstawie wcześniej zdefiniowanych punktów.\n");
+    printf("Ilość punktów: 5\n");
+    printf("Punkt początkowy nr 3\n");
+    printf("\nDo wykonania algorytmu wymagane jest stworzenie trzech dodatkowych list.\n");
+    struct list_node *current_outP;
+    struct list_node *current_inP;
+    struct list_node *current;
+    printf("\nNastąpi ustawienie punktu początkowego na nr 3. W przypadku rozpoczynania od miasta nr 1, ten krok zostałby pominięty.\n");
+    current_outP = get(head, 3 - 1);
+    //system("cls");
+    int i=0, j=0;
+    printf("Pętla główna działa do momentu, w którym na liście pozostanie jeden element.\n");
+    printf("Pętla wewnętrzna działa aż nie dojdziemy do końca listy.\n");
+    while(head->next != NULL){
+        printf("\nIteracja pętli głównej nr %d\n", i);
+        current = head;
+        float min = 0;
+        printf("Wyzerowanie najmniejszej odległości między dostępnymi miastami.\n");
+        if(current_outP == current) {
+            current = current -> next;
+            printf("Obecny punkt jest taki sam jak szczyt listy. Nastąpi przejście na następny punkt.\n");
+        }
+        current_inP = current;
+        printf("Obliczenie odległości między punktami.\n");
+        min = dlugosc(current_outP->x, current_outP->y, current->x, current->y);
+        current = head;
+        while(current != NULL){
+            printf("Iteracja pętli wewnętrznej nr %d\n", j);
+            if(dlugosc(current_outP -> x,current_outP -> y,current -> x,current -> y) < min && current_outP != current){
+                printf("Odległość między wybranym/ostatnio użytym punktem a punktem X jest mniejsza niż poprzednio obliczona odległość. Nastąpi podmiana minimalnej odległości.\n");
+                min = dlugosc(current_outP -> x,current_outP -> y,current -> x,current -> y);
+                current_inP = current;
+            }
+            current = current -> next;
+            j++;
+        }
+        printf("\nWyjście z pętli wewnętrznej.\n");
+        printf("\n%d(%3d,%3d) -> %d(%3d,%3d) = %lf\n", current_outP -> No+1, current_outP -> x, current_outP -> y, current_inP -> No+1, current_inP -> x, current_inP -> y, min);
+        pop_by_No(&head, current_outP -> No);
+        current_outP = current_inP;
+        *lengthWay += min;
+        i++;
+        printf("Obecna długość trasy: %.2lf", *lengthWay);
+        printf("\nWciśnij '1' aby kontynuować\n");
+        input(1,1);
+        system("cls");
+    }
+    pop_by_No(&head, current_outP -> No);
+    printf("Nastąpiło wyjście z pętli głównej. Ilość dostępnych punktów podróży wynosi 0, czyli podróżnik przebywał w każdym z miast.\n");
+    printf("\nMinimalna długość ścieżki: %lf\n", *lengthWay);
     printf("\nWciśnij '1' aby kontynuować\n");
     input(1,1);
     system("cls");
