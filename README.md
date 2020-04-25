@@ -1,7 +1,7 @@
-# 2 Kamień milowy - w trakcie
+# 2 Kamień milowy - gotowe
 
 - Przedstawienie kroków pracy algorytmu.
-- Pomiar czasu pracy algorytmu. // ZROBIONE
+- Pomiar czasu pracy algorytmu.
 - Zapis wyników do pliku
 - Przedstawienie ilości wykonywanych operacji
 
