@@ -475,9 +475,9 @@ void komiwojazer_example(struct list_node *head, int liczba_punktow, float *leng
         }
         printf("\nWyjście z pętli sprawdzającej odległości, wypisanie wyniku:\n");
         printf("\n%d(%3d,%3d) -> %d(%3d,%3d) = %lf\n", current_outP -> No+1, current_outP -> x, current_outP -> y, current_inP -> No+1, current_inP -> x, current_inP -> y, min);
-        printf("\nMiasto wyjściowe outP (Nr. %d) zostaje usunięte z listy (nie ma po trzeby go ponownego sprawdzania w jakimkolwiek kroku)", current_outP->No+1);
+        printf("\nMiasto wyjściowe outP (Nr. %d) zostaje usunięte z listy (nie ma potrzeby ponownego sprawdzania go w jakimkolwiek kroku)", current_outP->No+1);
         printf("\nMiasto docelowe intP (Nr. %d) zostaje zapisane jako miasto wyjściowe outP", current_inP->No+1);
-        printf("\nOdległość miedzy miastami zostaje zsumowana z poprzednio obliczonymi odległościami");
+        printf("\nOdległość miedzy miastami zostaje dodana do poprzednio obliczonych odległości.");
         pop_by_No(&head, current_outP -> No);
         current_outP = current_inP;
         *lengthWay += min;

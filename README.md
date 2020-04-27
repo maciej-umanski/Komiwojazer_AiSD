@@ -1,3 +1,10 @@
+# 1 termin oddania pracy - w trakcie
+
+- Ujednolicenie nazewnictwa wewnątrz programu
+- Testy w celu wykrycia ewentualnych błędów
+- utworzenie komentarzy do ważniejszych części kodu
+- utworzenie dokumentacji w programie Doxygen
+
 # 2 Kamień milowy - gotowe
 
 - Przedstawienie kroków pracy algorytmu.
