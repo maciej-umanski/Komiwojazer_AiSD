@@ -29,7 +29,7 @@ void komiwojazer_example(struct list_node *head, int liczba_punktow, float *leng
 
 
 int main() {
-        int count[3]= {0}, *counter_1 = &count[0], *counter_2 = &count[1], *counter_3 = &count[2];
+    int count[3]= {0}, *counter_1 = &count[0], *counter_2 = &count[1], *counter_3 = &count[2];
     // 0 - ilość zmiany punktu; 1 - ilosc obliczonych dlugosci pkt; 2 - ilosc wykonań pętli wewnętrznej;
     float length = 0, *lengthWay = &length;
     double time = 0, *timer = &time;
@@ -318,10 +318,18 @@ int wczytaj_z_pliku(struct list_node **head, char nazwa[]){
         return -1;
     }
     else{
-        int x = 0, y = 0, i = 0;
-        while(fscanf(file, "%d%d", &x, &y) != EOF){
-            push_back(head, x, y, i);
-            i++;
+        int i = 0;
+        char x[20], y[20], *koniecx, *koniecy;
+        while(fscanf(file, "%s %s", x, y) != EOF){
+            int xp = strtol(x, &koniecx, 10);
+            int yp = strtol(y, &koniecy, 10);
+            if(*koniecx==*x || *koniecy == *y){
+                break;
+            }
+            else{
+                push_back(head, xp, yp, i);
+                i++;
+            }
         }
         fclose(file);
     }
