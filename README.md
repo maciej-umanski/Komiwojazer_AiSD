@@ -1,7 +1,14 @@
-# 2 Kamień milowy - w trakcie
+# 1 termin oddania pracy - w trakcie
+
+- Ujednolicenie nazewnictwa wewnątrz programu
+- Testy w celu wykrycia ewentualnych błędów
+- utworzenie komentarzy do ważniejszych części kodu
+- utworzenie dokumentacji w programie Doxygen
+
+# 2 Kamień milowy - gotowe
 
 - Przedstawienie kroków pracy algorytmu.
-- Pomiar czasu pracy algorytmu. // ZROBIONE
+- Pomiar czasu pracy algorytmu.
 - Zapis wyników do pliku
 - Przedstawienie ilości wykonywanych operacji
 
