@@ -8,6 +8,11 @@ oraz zainstalować FreeGLUT, przekopiuj po prostu pliki do C:/MinGW
 https://www.transmissionzero.co.uk/files/software/development/GLUT/freeglut-MinGW.zip
 ````
 
+<<<<<<< Updated upstream
+=======
+#WAZNE
+EDYTUJ W UTF-8. DOPIERO PODCZAS OSTATNIEGO TESTOWEGO BUILDA ZAMIEN NA IBM852 ZEBY ZOBACZYC CZY POLSKIE ZNAKI DZIALAJĄ
+>>>>>>> Stashed changes
 
 # 1 termin oddania pracy - w trakcie
 

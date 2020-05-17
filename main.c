@@ -40,18 +40,18 @@ int main(int argc, char **argv) {
     glutInit(&argc, argv); // init do wyswietlania grafiki
 
     int count[3]= {0}, *counter_1 = &count[0], *counter_2 = &count[1], *counter_3 = &count[2];
-    // 0 - ilo˜† zmiany punktu; 1 - ilosc obliczonych dlugosci pkt; 2 - ilosc wykonaä p©tli wewn©trznej;
+    // 0 - iloÅ›Ä‡ zmiany punktu; 1 - ilosc obliczonych dlugosci pkt; 2 - ilosc wykonaÅ„ pÄ™tli wewnÄ™trznej;
     float length = 0, *lengthWay = &length;
     double time = 0, *timer = &time;
     while(1) {
         struct list_node *head = NULL;
         system("cls");
-        printf("Witam w programie Komiwoja¾er! Prosz© wybierz interesuj¥c¥ Ci© opcj©.\n\n");
-        printf("1. Wprowadzanie punkt¢w samodzielnie.\n");
-        printf("2. Losowanie punkt¢w.\n");
-        printf("3. Wczytywanie punkt¢w z pliku.\n");
+        printf("Witam w programie KomiwojaÅ¼er! ProszÄ™ wybierz interesujÄ…cÄ… CiÄ™ opcjÄ™.\n\n");
+        printf("1. Wprowadzanie punktÃ³w samodzielnie.\n");
+        printf("2. Losowanie punktÃ³w.\n");
+        printf("3. Wczytywanie punktÃ³w z pliku.\n");
         printf("4. Przedstawienie pracy algorytmu.\n");
-        printf("5. Zakoäcz program.\n");
+        printf("5. ZakoÅ„cz program.\n");
 
         switch (input(1,5)) {
             default:
@@ -113,12 +113,12 @@ int main(int argc, char **argv) {
             }
             case 4:{
                 system("cls");
-                printf("UWAGA! algorytm wykonuje si© krokowo, nie zalecana wysoka liczba punkt¢w!\n");
+                printf("UWAGA! algorytm wykonuje siÄ™ krokowo, nie zalecana wysoka liczba punktÃ³w!\n");
                 printf("1. Wczytaj punkty testowe (POLECANE!)\n");
-                printf("2. Wprowad« punkty samodzielnie\n");
+                printf("2. WprowadÅº punkty samodzielnie\n");
                 printf("3. Losuj punkty\n");
-                printf("4. Wczytaj punkty z wˆasnego pliku\n");
-                printf("5. Powr¢t do menu\n");
+                printf("4. Wczytaj punkty z wÅ‚asnego pliku\n");
+                printf("5. PowrÃ³t do menu\n");
                 switch(input(1,5)){
                     case 1:{
                         if (wczytaj_z_pliku(&head, "example.txt") != 0){
@@ -232,7 +232,7 @@ int input(int a, int b){
     int bufor = strtol(bufortab, &koniec, 10);
     if(a == 0 || b == 0) {
         while (*koniec == *bufortab) {
-            puts("\nBˆ¥d, zˆa dana wej˜ciowa. Prosz© wpisz ponownie.");
+            puts("\nBÅ‚Ä…d, zÅ‚a dana wejÅ›ciowa. ProszÄ™ wpisz ponownie.");
             scanf("%s", bufortab);
             bufor = strtol(bufortab, &koniec, 10);
         }
@@ -240,7 +240,7 @@ int input(int a, int b){
     }
     else{
         while ((*koniec == *bufortab) || (bufor < a) || (bufor > b)) {
-            puts("Bˆ¥d, zˆa dana wej˜ciowa. Prosz© wpisz ponownie.");
+            puts("BÅ‚Ä…d, zÅ‚a dana wejÅ›ciowa. ProszÄ™ wpisz ponownie.");
             scanf("%s", bufortab);
             bufor = strtol(bufortab, &koniec, 10);
         }
@@ -252,10 +252,10 @@ int ilosc_punktow(){
     system("cls");
     int liczba_punktow;
     do {
-        printf("Wprowad« liczb© punkt¢w:");
+        printf("WprowadÅº liczbÄ™ punktÃ³w:");
         liczba_punktow = input(0, 0);
         if(liczba_punktow <= 1){
-            printf("Bˆ¥d! Liczba punkt¢w musi by† wi©ksza od 1. Prosz© wprowadzi† dane ponownie\n\n");
+            printf("BÅ‚Ä…d! Liczba punktÃ³w musi byÄ‡ wiÄ™ksza od 1. ProszÄ™ wprowadziÄ‡ dane ponownie\n\n");
         }
     }while(liczba_punktow <= 1);
     return liczba_punktow;
@@ -265,17 +265,17 @@ void losuj_punkty(struct list_node **head, int liczba_punktow){
     int begin, end;
     do {
         system("cls");
-        printf("Pocz¥tek przedziaˆu losowania liczb:");
+        printf("PoczÄ…tek przedziaÅ‚u losowania liczb:");
         begin = input(0, 0);
-        printf("Koniec przedziaˆu losowania liczb:");
+        printf("Koniec przedziaÅ‚u losowania liczb:");
         end = input(0, 0);
         system("cls");
         if(begin > end){
-            printf("Bˆ¥d! koniec nie mo¾e miec wi©kszej warto˜ci ni¾ pocz¥tek. Prosz© wprowadzi† dane ponownie.\n\n");
+            printf("BÅ‚Ä…d! koniec nie moÅ¼e miec wiÄ™kszej wartoÅ›ci niÅ¼ poczÄ…tek. ProszÄ™ wprowadziÄ‡ dane ponownie.\n\n");
             Sleep(1500);
         }
         else if(begin == end){
-            printf("Bˆ¥d! Warto˜ci nie mog¥ by† jednakowe. Prosz© wprowadzi† dane ponownie.\n\n");
+            printf("BÅ‚Ä…d! WartoÅ›ci nie mogÄ… byÄ‡ jednakowe. ProszÄ™ wprowadziÄ‡ dane ponownie.\n\n");
             Sleep(1500);
         }
     }while(end < begin);
@@ -289,12 +289,12 @@ void losuj_punkty(struct list_node **head, int liczba_punktow){
 
 void zapisz_do_pliku(struct list_node *head){
     system("cls");
-    printf("Czy chcesz zapisa† aktualne punkty do pliku?\n(UWAGA!) Program nadpisze aktualny plik z punktami je¾eli taki jest utworzony!\n1.Tak\n2.Nie\n");
+    printf("Czy chcesz zapisaÄ‡ aktualne punkty do pliku?\n(UWAGA!) Program nadpisze aktualny plik z punktami jeÅ¼eli taki jest utworzony!\n1.Tak\n2.Nie\n");
     switch(input(1,2)) {
         case 1:{
             FILE *file;
             if ((file = fopen("punkty.txt", "w")) == NULL) {
-                printf("Nast¥piˆ bˆ¥d podczas pr¢by utworzenia pliku z punktami\n");
+                printf("NastÄ…piÅ‚ bÅ‚Ä…d podczas prÃ³by utworzenia pliku z punktami\n");
                 Sleep(2000);
                 system("cls");
                 return;
@@ -318,20 +318,20 @@ void zapisz_do_pliku(struct list_node *head){
 
 void zapisz_do_pliku_wynik(const float *result, const int *counter_1, const int *counter_2, const int *counter_3, const double *timer){
     system("cls");
-    printf("Czy chcesz zapisa† aktualny wynik do pliku?\n(UWAGA!) Program nadpisze aktualny plik z wynikiem, je¾eli taki jest utworzony!\n1.Tak\n2.Nie\n");
+    printf("Czy chcesz zapisaÄ‡ aktualny wynik do pliku?\n(UWAGA!) Program nadpisze aktualny plik z wynikiem, jeÅ¼eli taki jest utworzony!\n1.Tak\n2.Nie\n");
     switch(input(1,2)) {
         case 1:{
             FILE *file;
             if ((file = fopen("wynik.txt", "w")) == NULL) {
-                printf("Nast¥piˆ bˆ¥d podczas pr¢by utworzenia pliku z punktami\n");
+                printf("NastÄ…piÅ‚ bÅ‚Ä…d podczas prÃ³by utworzenia pliku z punktami\n");
                 Sleep(2000);
                 system("cls");
                 return;
             } else {
-                fprintf(file, "Minimalna dˆugo˜† ˜cie¾ki: %lf\n", *result);
-                fprintf(file, "Ilo˜† zmian punktu: %d razy\n", *counter_1);
-                fprintf(file, "Dˆugo˜† punktu zostaˆa obliczona %d razy\n", *counter_2);
-                fprintf(file, "Ilo˜† wywoˆaä p©tli po˜redniej: %d razy\n", *counter_3);
+                fprintf(file, "Minimalna dÅ‚ugoÅ›Ä‡ Å›cieÅ¼ki: %lf\n", *result);
+                fprintf(file, "IloÅ›Ä‡ zmian punktu: %d razy\n", *counter_1);
+                fprintf(file, "DÅ‚ugoÅ›Ä‡ punktu zostaÅ‚a obliczona %d razy\n", *counter_2);
+                fprintf(file, "IloÅ›Ä‡ wywoÅ‚aÅ„ pÄ™tli poÅ›redniej: %d razy\n", *counter_3);
                 fprintf(file, "Czas wykonania algorytmu wynosi: %.2lf s.\n", *timer);
             }
             fclose(file);
@@ -351,7 +351,7 @@ int wczytaj_z_pliku(struct list_node **head, char nazwa[]){
     system("cls");
     file = fopen(nazwa, "r");
     if (file == NULL) {
-        printf("Wyst¥piˆ bˆ¥d podczas pr¢by otwarcia pliku z punktami lub plik nie istnieje\n");
+        printf("WystÄ…piÅ‚ bÅ‚Ä…d podczas prÃ³by otwarcia pliku z punktami lub plik nie istnieje\n");
         Sleep(2000);
         return -1;
     }
@@ -376,7 +376,7 @@ int wczytaj_z_pliku(struct list_node **head, char nazwa[]){
 
 void wyswietl_punkty(struct list_node *head){
     system("cls");
-    printf("Czy chcesz wy˜wietli† aktualnie wybrane punkty?\n1.Tak\n2.Nie\n");
+    printf("Czy chcesz wyÅ›wietliÄ‡ aktualnie wybrane punkty?\n1.Tak\n2.Nie\n");
     switch(input(1,2)) {
         case 1: {
             system("cls");
@@ -386,7 +386,7 @@ void wyswietl_punkty(struct list_node *head){
                 printf("%d. X=%3d, Y=%3d\n", i, current->x, current->y);
                 current = current->next;
             }
-            printf("\nWci˜nij '1' aby kontynuowa†\n");
+            printf("\nWciÅ›nij '1' aby kontynuowaÄ‡\n");
             input(1,1);
             system("cls");
             return;
@@ -399,10 +399,10 @@ void wyswietl_punkty(struct list_node *head){
 
 void wprowadz_punkty(struct list_node **head, int liczba_punktow){
     system("cls");
-    printf("Prosz© wprowad« punkty, ka¾dy zatwierdzaj enterem.\n");
+    printf("ProszÄ™ wprowadÅº punkty, kaÅ¼dy zatwierdzaj enterem.\n");
     for (int i = 0; i < liczba_punktow; i++) {
         int x,y;
-        printf("Liczba wymaganych punkt¢w do wprowadzenia: %d\n", liczba_punktow - i);
+        printf("Liczba wymaganych punktÃ³w do wprowadzenia: %d\n", liczba_punktow - i);
         printf("%d.X=", i + 1);
         x = input(0, 0);
         printf("%d.Y=", i + 1);
@@ -423,7 +423,7 @@ void komiwojazer(struct list_node *head, int liczba_punktow, int *counter_1, int
     struct list_node *current_outP;
     struct list_node *current_inP;
     struct list_node *current;
-    printf("Od kt¢rego miasta chcesz rozpocz¥† swoj¥ w©dr¢wk©? Wpisz jego numer: ");
+    printf("Od ktÃ³rego miasta chcesz rozpoczÄ…Ä‡ swojÄ… wÄ™drÃ³wkÄ™? Wpisz jego numer: ");
     current_outP = get(head, (input(1, liczba_punktow))-1);
     system("cls");
     while(head->next != NULL){
@@ -454,28 +454,28 @@ void komiwojazer(struct list_node *head, int liczba_punktow, int *counter_1, int
     }
     *timer = (GetTickCount() - start)/1000.0;
     pop_by_No(&head, current_outP -> No);
-    printf("\nSzczeg¢ˆy pracy algorytmu:\n");
-    printf("\nTrasa przebyta przez komiwoja¾era mi©dzy wszystkimi miastami: %lf\n", *lengthWay);
-    printf("Ilo˜† zmian punktu: %d razy\n", *counter_1);
-    printf("Odlegˆo˜† mi©dzy miastami zostaˆa obliczona %d razy\n", *counter_2);
-    printf("Ilo˜† wywoˆaä p©tli po˜redniej: %d razy\n", *counter_3);
+    printf("\nSzczegÃ³Å‚y pracy algorytmu:\n");
+    printf("\nTrasa przebyta przez komiwojaÅ¼era miÄ™dzy wszystkimi miastami: %lf\n", *lengthWay);
+    printf("IloÅ›Ä‡ zmian punktu: %d razy\n", *counter_1);
+    printf("OdlegÅ‚oÅ›Ä‡ miÄ™dzy miastami zostaÅ‚a obliczona %d razy\n", *counter_2);
+    printf("IloÅ›Ä‡ wywoÅ‚aÅ„ pÄ™tli poÅ›redniej: %d razy\n", *counter_3);
     printf("Czas wykonania algorytmu wynosi: %.2lf s.\n", *timer);
-    printf("\nWci˜nij '1' aby kontynuowa†\n");
+    printf("\nWciÅ›nij '1' aby kontynuowaÄ‡\n");
     input(1,1);
     system("cls");
 }
 
 void komiwojazer_example(struct list_node *head, int liczba_punktow, float *lengthWay){
     system("cls");
-    printf("Przedstawienie dziaˆania algorytmu na podstawie wcze˜niej zdefiniowanych punkt¢w.\n");
-    printf("Ilo˜† punkt¢w: %d\n", liczba_punktow);
-    printf("\nDo wykonania algorytmu wymagane jest stworzenie trzech dodatkowych wska«nik¢w:\n\n");
-    printf("current_outP - Wska«nik na miasto, z kt¢rego szukamy najbli¾szego miasta.\n");
-    printf("current_inP - Wska«nik na miasto, kt¢re le¾y najbli¾ej do w/w.\n");
-    printf("current - Wska«nik bufor, na nim sprawdzamy odlegˆo˜ci z miasta wyj˜ciowego i szukamy najbli¾szego.\n\n");
-    printf("P©tla gˆ¢wna dziaˆa do momentu, w kt¢rym na li˜cie miast pozostanie jeden element.\n");
-    printf("P©tla sprawdzaj¥ca odlegˆo˜ci z miasta outP do najbli¾szego sprawdza ka¾de miasto a¾ nie dojdziemy do koäca listy.\n");
-    printf("\nWci˜nij '1' aby kontynuowa†\n");
+    printf("Przedstawienie dziaÅ‚ania algorytmu na podstawie wczeÅ›niej zdefiniowanych punktÃ³w.\n");
+    printf("IloÅ›Ä‡ punktÃ³w: %d\n", liczba_punktow);
+    printf("\nDo wykonania algorytmu wymagane jest stworzenie trzech dodatkowych wskaÅºnikÃ³w:\n\n");
+    printf("current_outP - WskaÅºnik na miasto, z ktÃ³rego szukamy najbliÅ¼szego miasta.\n");
+    printf("current_inP - WskaÅºnik na miasto, ktÃ³re leÅ¼y najbliÅ¼ej do w/w.\n");
+    printf("current - WskaÅºnik bufor, na nim sprawdzamy odlegÅ‚oÅ›ci z miasta wyjÅ›ciowego i szukamy najbliÅ¼szego.\n\n");
+    printf("PÄ™tla gÅ‚Ã³wna dziaÅ‚a do momentu, w ktÃ³rym na liÅ›cie miast pozostanie jeden element.\n");
+    printf("PÄ™tla sprawdzajÄ…ca odlegÅ‚oÅ›ci z miasta outP do najbliÅ¼szego sprawdza kaÅ¼de miasto aÅ¼ nie dojdziemy do koÅ„ca listy.\n");
+    printf("\nWciÅ›nij '1' aby kontynuowaÄ‡\n");
     input(1,1);
     system("cls");
 
@@ -483,52 +483,52 @@ void komiwojazer_example(struct list_node *head, int liczba_punktow, float *leng
     struct list_node *current_inP;
     struct list_node *current;
     int i=0;
-    printf("Od kt¢rego miasta chcesz rozpocz¥† swoj¥ w©dr¢wk©? Wpisz jego numer: ");
+    printf("Od ktÃ³rego miasta chcesz rozpoczÄ…Ä‡ swojÄ… wÄ™drÃ³wkÄ™? Wpisz jego numer: ");
     current_outP = get(head, (input(1, liczba_punktow))-1);
     system("cls");
 
     while(head->next != NULL){
-        printf("Iteracja p©tli gˆ¢wnej nr %d\n\n", i+1);
+        printf("Iteracja pÄ™tli gÅ‚Ã³wnej nr %d\n\n", i+1);
         current = head;
         float min;
         if(current_outP == current) {
             current = current -> next;
-            printf("Sprawdzane miasto jest miastem wyj˜ciowym. Nast¥pi przej˜cie na nast©pny punkt.\n");
+            printf("Sprawdzane miasto jest miastem wyjÅ›ciowym. NastÄ…pi przejÅ›cie na nastÄ™pny punkt.\n");
         }
         current_inP = current;
-        printf("Obliczenie odlegˆo˜ci wyj˜ciowej mi©dzy miastami. (w celu odniesienia si© do niej w p¢«niejszych etapach)\n\n");
+        printf("Obliczenie odlegÅ‚oÅ›ci wyjÅ›ciowej miÄ™dzy miastami. (w celu odniesienia siÄ™ do niej w pÃ³Åºniejszych etapach)\n\n");
         min = dlugosc(current_outP->x, current_outP->y, current->x, current->y);
         current = head;
-        printf("Sprawdzanie odlegˆo˜ci mi©dzy punktami:\n");
+        printf("Sprawdzanie odlegÅ‚oÅ›ci miÄ™dzy punktami:\n");
         int j = 0;
         while(current != NULL){
-            printf("Iteracja p©tli wewn©trznej nr %d\n", j+1);
+            printf("Iteracja pÄ™tli wewnÄ™trznej nr %d\n", j+1);
             if(dlugosc(current_outP -> x,current_outP -> y,current -> x,current -> y) < min && current_outP != current){
-                printf("    Nowa Odlegˆo˜† jest mniejsza ni¾ poprzednio obliczona. Nast¥pi podmiana minimalnej odlegˆo˜ci.\n");
+                printf("    Nowa OdlegÅ‚oÅ›Ä‡ jest mniejsza niÅ¼ poprzednio obliczona. NastÄ…pi podmiana minimalnej odlegÅ‚oÅ›ci.\n");
                 min = dlugosc(current_outP -> x,current_outP -> y,current -> x,current -> y);
                 current_inP = current;
             }
             current = current -> next;
             j++;
         }
-        printf("\nWyj˜cie z p©tli sprawdzaj¥cej odlegˆo˜ci, wypisanie wyniku:\n");
+        printf("\nWyjÅ›cie z pÄ™tli sprawdzajÄ…cej odlegÅ‚oÅ›ci, wypisanie wyniku:\n");
         printf("\n%d(%3d,%3d) -> %d(%3d,%3d) = %lf\n", current_outP -> No+1, current_outP -> x, current_outP -> y, current_inP -> No+1, current_inP -> x, current_inP -> y, min);
-        printf("\nMiasto wyj˜ciowe outP (Nr. %d) zostaje usuni©te z listy (nie ma potrzeby ponownego sprawdzania go w jakimkolwiek kroku)", current_outP->No+1);
-        printf("\nMiasto docelowe intP (Nr. %d) zostaje zapisane jako miasto wyj˜ciowe outP", current_inP->No+1);
-        printf("\nOdlegˆo˜† miedzy miastami zostaje dodana do poprzednio obliczonych odlegˆo˜ci.");
+        printf("\nMiasto wyjÅ›ciowe outP (Nr. %d) zostaje usuniÄ™te z listy (nie ma potrzeby ponownego sprawdzania go w jakimkolwiek kroku)", current_outP->No+1);
+        printf("\nMiasto docelowe intP (Nr. %d) zostaje zapisane jako miasto wyjÅ›ciowe outP", current_inP->No+1);
+        printf("\nOdlegÅ‚oÅ›Ä‡ miedzy miastami zostaje dodana do poprzednio obliczonych odlegÅ‚oÅ›ci.");
         pop_by_No(&head, current_outP -> No);
         current_outP = current_inP;
         *lengthWay += min;
         i++;
-        printf("\n\nObecna dˆugo˜† pokonanej trasy: %.2lf\n", *lengthWay);
-        printf("\nWci˜nij '1' aby kontynuowa†\n");
+        printf("\n\nObecna dÅ‚ugoÅ›Ä‡ pokonanej trasy: %.2lf\n", *lengthWay);
+        printf("\nWciÅ›nij '1' aby kontynuowaÄ‡\n");
         input(1,1);
         system("cls");
     }
     pop_by_No(&head, current_outP -> No);
-    printf("Nast¥piˆo wyj˜cie z p©tli gˆ¢wnej.\nIlo˜† dost©pnych punkt¢w podr¢¾y wynosi 0, czyli podr¢¾nik przebywaˆ w ka¾dym z miast.\n");
-    printf("\nMinimalna dˆugo˜† ˜cie¾ki: %lf\n", *lengthWay);
-    printf("\nWci˜nij '1' aby kontynuowa†\n");
+    printf("NastÄ…piÅ‚o wyjÅ›cie z pÄ™tli gÅ‚Ã³wnej.\nIloÅ›Ä‡ dostÄ™pnych punktÃ³w podrÃ³Å¼y wynosi 0, czyli podrÃ³Å¼nik przebywaÅ‚ w kaÅ¼dym z miast.\n");
+    printf("\nMinimalna dÅ‚ugoÅ›Ä‡ Å›cieÅ¼ki: %lf\n", *lengthWay);
+    printf("\nWciÅ›nij '1' aby kontynuowaÄ‡\n");
     input(1,1);
     system("cls");
 }
@@ -554,7 +554,7 @@ void komiwojazer_screen(struct list_node *head, int liczba_punktow, int *counter
     struct list_node *current_outP;
     struct list_node *current_inP;
     struct list_node *current;
-    printf("Od kt¢rego miasta chcesz rozpocz¥† swoj¥ w©dr¢wk©? Wpisz jego numer: ");
+    printf("Od ktÃ³rego miasta chcesz rozpoczÄ…Ä‡ swojÄ… wÄ™drÃ³wkÄ™? Wpisz jego numer: ");
     current_outP = get(head, (input(1, liczba_punktow))-1);
     system("cls");
     x_screen[countz] = current_outP -> x;
@@ -591,11 +591,11 @@ void komiwojazer_screen(struct list_node *head, int liczba_punktow, int *counter
     *timer = (GetTickCount() - start)/1000.0;
     pop_by_No(&head, current_outP -> No);
 
-    printf("\nSzczeg¢ˆy pracy algorytmu:\n");
-    printf("\nTrasa przebyta przez komiwoja¾era mi©dzy wszystkimi miastami: %lf\n", *lengthWay);
-    printf("Ilo˜† zmian punktu: %d razy\n", *counter_1);
-    printf("Odlegˆo˜† mi©dzy miastami zostaˆa obliczona %d razy\n", *counter_2);
-    printf("Ilo˜† wywoˆaä p©tli po˜redniej: %d razy\n", *counter_3);
+    printf("\nSzczegÃ³Å‚y pracy algorytmu:\n");
+    printf("\nTrasa przebyta przez komiwojaÅ¼era miÄ™dzy wszystkimi miastami: %lf\n", *lengthWay);
+    printf("IloÅ›Ä‡ zmian punktu: %d razy\n", *counter_1);
+    printf("OdlegÅ‚oÅ›Ä‡ miÄ™dzy miastami zostaÅ‚a obliczona %d razy\n", *counter_2);
+    printf("IloÅ›Ä‡ wywoÅ‚aÅ„ pÄ™tli poÅ›redniej: %d razy\n", *counter_3);
     printf("Czas wykonania algorytmu wynosi: %.2lf s.\n", *timer);
 
     glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE);
@@ -661,8 +661,8 @@ void windowDisplay(){
 
 int wybor_wyswietlania(){
     system("cls");
-    printf("Chcesz wy˜wietli† dane graficznie czy tekstowo?.\n");
-    printf("Uwaga! Program koäczy swoje dziaˆanie po wy˜wietleniu okna z punktami!\n\n");
+    printf("Chcesz wyÅ›wietliÄ‡ dane graficznie czy tekstowo?.\n");
+    printf("Uwaga! Program koÅ„czy swoje dziaÅ‚anie po wyÅ›wietleniu okna z punktami!\n\n");
     printf("1. Tekstowo.\n");
     printf("2. Graficznie.\n");
     int wybor = input(1,2);
