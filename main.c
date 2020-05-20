@@ -5,6 +5,14 @@
 #include <math.h>
 #include <GL/glut.h>
 
+/**
+* \brief struktura przechowująca punkty.
+* @param No numer punktu.
+* @param x współrzędna x punktu.
+* @param y współrzędna y punktu.
+* @param *next wskaźnik na następny element.
+*/
+
 struct list_node{
     int No;
     int x;
@@ -27,13 +35,18 @@ void wprowadz_punkty(struct list_node **head, int liczba_punktow);
 float dlugosc(int x1,int y1,int x2,int y2);
 void komiwojazer(struct list_node *head, int liczba_punktow, int *counter_1, int *counter_2, int *counter_3, float *lengthWay, double *timer);
 void komiwojazer_example(struct list_node *head, int liczba_punktow, float *lengthWay);
-
-//SEKCJA WSTYDU//
 int wybor_wyswietlania();
 void komiwojazer_screen(struct list_node *head, int liczba_punktow, int *counter_1, int *counter_2, int *counter_3, float *lengthWay, double *timer);
 void windowDisplay();
-int x_screen[100000], y_screen[100000], countz = 0, maxVal = 0;
-//KONIEC SEKCJI WSTYDU//
+
+
+struct list_node *head_wyswietlanie = NULL; ///<Wskaźnik na listę z miastami do wyświetlenia graficznego
+
+/**
+* \brief Główne menu programu
+*
+* Funkcja zarzadzająca całym programem.
+*/
 
 int main(int argc, char **argv) {
 
@@ -158,6 +171,14 @@ int main(int argc, char **argv) {
     }
 }
 
+/**
+* \brief Dodawanie punktu na koniec listy.
+* @param **head wskaźnik na głowę listy z punktami.
+* @param x współrzędna x punktu.
+* @param y współrzędna y punktu.
+* @param No numer dodawanego punktu.
+*/
+
 void push_back(struct list_node **head, int x, int y, int No){
     if(*head==NULL){
         *head = (struct list_node *)malloc(sizeof(struct list_node));
@@ -177,6 +198,15 @@ void push_back(struct list_node **head, int x, int y, int No){
         new_node->next->next = NULL;
     }
 }
+
+/**
+* \brief Usuwanie określonego przez numer punktu
+*
+* Funkcja wyszukuje poprzedni od usuwanego element w celu poprawnego przypisania wskaźników po usunięciu
+* wybranego punktu.
+* @param **head Wskaźnik na głowę listy z punktami.
+* @param No numer usuwanego elementu
+*/
 
 void pop_by_No(struct list_node **head, int No){
     struct list_node *current=*head;
@@ -203,6 +233,16 @@ void pop_by_No(struct list_node **head, int No){
 
 }
 
+/**
+* \brief Wyszukiwanie określonego punktu.
+*
+* Funkcja przeszukuje listy i powórnuje zmienną "No" aż nie będzie się jej wartość zgadzać z
+* przekazaną do funkcji. Zwraca wskaźnik szukanego elementu.
+* @param *head wskaźnik na głowę listy z punktami.
+* @param No wartość szukana.
+* @return Wskaźnik szukanego elementu.
+*/
+
 struct list_node *get(struct list_node *head, int No){
     struct list_node *current=head;
     while(current -> No != No){
@@ -210,6 +250,14 @@ struct list_node *get(struct list_node *head, int No){
     }
     return current;
 }
+
+/**
+* \brief Zliczanie długości listy.
+*
+* Funkcja zlicza długość listy w celu poznania ilości punktów które są w niej zapisane.
+* @param *head Wskaźnik na głowę listy z punktami.
+* @return Ilość elementów listy.
+*/
 
 int list_size(struct list_node *head){
     int counter=0;
@@ -225,6 +273,16 @@ int list_size(struct list_node *head){
     }
     return counter;
 }
+/**
+* \brief Walidacja danych wprowadzanych przez użytkownika.
+*
+* Funkcja sprawdza czy w podanym ciągu znaków wprowadzanym przez użytkownika nie znajdują
+* się żadne litery czy znaki interpunkcyjne i zwraca jedynie liczby całkowite.
+* @param a Najmniejsza akceptowana wprowadzona liczba.
+* @param b Najwieksza akceptowana wprowadzona liczba.
+* @return Liczba wprowadzona przez użytkownika.
+*
+*/
 
 int input(int a, int b){
     char bufortab[10], *koniec;
@@ -247,7 +305,13 @@ int input(int a, int b){
         return bufor;
     }
 }
-
+/**
+* \brief Pobiera od użytkownika liczbę punktów do wprowadzenia lub wygenerowania
+*
+* Funkcja prosi użytkownika o wprowadzenie liczby punktów. Sprawdza czy jest to poprawna wartość
+* oraz ją zwraca.
+* @return Liczba punktow
+*/
 int ilosc_punktow(){
     system("cls");
     int liczba_punktow;
@@ -260,6 +324,15 @@ int ilosc_punktow(){
     }while(liczba_punktow <= 1);
     return liczba_punktow;
 }
+
+/**
+* \brief Losowanie punktów
+*
+* Funkcja losuje określoną ilość punktów w pewnym zakresie podanym przez użytkownika
+* oraz dopisuje je do listy.
+* @param **head wskaźnik na głowę listy z punktami.
+* @param liczba_punktow liczba losowanych punktów.
+*/
 
 void losuj_punkty(struct list_node **head, int liczba_punktow){
     int begin, end;
@@ -286,6 +359,13 @@ void losuj_punkty(struct list_node **head, int liczba_punktow){
         push_back(head, x, y, i);
     }
 }
+
+/**
+* \brief Zapisywanie punktów do pliku
+*
+* Funkcja zapisuje wylosowane lub wprowadzone samodzielnie punkty do pliku tekstowego.
+* @param *head Wskaźnik na głowę listy z punktami.
+*/
 
 void zapisz_do_pliku(struct list_node *head){
     system("cls");
@@ -316,6 +396,17 @@ void zapisz_do_pliku(struct list_node *head){
     }
 }
 
+/**
+* \brief Zapisywanie wyników pracy algorytmu do pliku
+*
+* Funkcja zapisuje wyniki pracy algorytmu do pliku tekstowego
+* @param *result Droga przebyta przez komiwojażera obliczona przez algorytm.
+* @param *counter_1 Ilość zmian punktu sprawdzanego przy liczeniu odległości między miastami przy pracy alogrytmu
+* @param *counter_2 Ilość obliczonych i sprawdzonych odległości między miastami przy pracy algorytmu
+* @param *counter_3 Ilosc wykonań pętli wewnętrznej przy paracy algorytmu
+* @param *timer Czas pracy algorytmu
+*/
+
 void zapisz_do_pliku_wynik(const float *result, const int *counter_1, const int *counter_2, const int *counter_3, const double *timer){
     system("cls");
     printf("Czy chcesz zapisać aktualny wynik do pliku?\n(UWAGA!) Program nadpisze aktualny plik z wynikiem, jeżeli taki jest utworzony!\n1.Tak\n2.Nie\n");
@@ -344,6 +435,16 @@ void zapisz_do_pliku_wynik(const float *result, const int *counter_1, const int 
         }
     }
 }
+
+/**
+* \brief Wczytywanie punktów z pliku
+*
+* Funkcja otwiera plik tekstowy oraz przepisuje wartości punktów zapisane w nim
+* do struktury.
+* @param **head Wskaźnik na głowę listy z punktami.
+* @param nazwa[] Nazwa odczytywanego pliku.
+* @return 0 w przypadku powodzenia, -1 błędu.
+*/
 
 
 int wczytaj_z_pliku(struct list_node **head, char nazwa[]){
@@ -374,6 +475,14 @@ int wczytaj_z_pliku(struct list_node **head, char nazwa[]){
     return 0;
 }
 
+/**
+* \brief Wypisywanie punktów w liście.
+*
+* Funkcja wypisuje wszystkie punkty które aktualnie zawiera lista.
+* @param *head Wskaźnik na głowę listy z punktami.
+*/
+
+
 void wyswietl_punkty(struct list_node *head){
     system("cls");
     printf("Czy chcesz wyświetlić aktualnie wybrane punkty?\n1.Tak\n2.Nie\n");
@@ -396,6 +505,13 @@ void wyswietl_punkty(struct list_node *head){
         }
     }
 }
+/**
+* \brief Wprowadzanie samodzielnie punktów
+*
+* Funkcja pobiera od użytkownika określoną liczbę współrzednych punktów i zapisuje je do listy
+* @param **head Wskaźnik na głowę listy z punktami.
+* @param liczba_punktów Ilość punktów które użytkownik musi wprowadzić.
+*/
 
 void wprowadz_punkty(struct list_node **head, int liczba_punktow){
     system("cls");
@@ -413,9 +529,35 @@ void wprowadz_punkty(struct list_node **head, int liczba_punktow){
     system("cls");
 }
 
+/**
+* \brief Długość między dwoma punktami
+*
+* Funkcja pomocnicza w algorytmie komiwojażera, oblicza odległosć między dwoma podanymi punktami
+* @param x1 Współrzędna X punktu 1
+* @param y1 Współrzędna Y punktu 1
+* @param x2 Współrzędna X punktu 2
+* @param y2 Współrzędna Y punktu 2
+* @return Odległość między punktami
+*/
+
 float dlugosc(int x1,int y1,int x2,int y2){
     return (float)sqrt((x1-x2)*(x1-x2)+(y1-y2)*(y1-y2));
 }
+
+/**
+* \brief Algorytm główny
+*
+* Funkcja która uruchamia algorytm oraz wypisuje wyniki oraz drogę przebytą przez Komiwojażera
+*
+* @param *head Wskaźnik na głowę listy z punktami
+* @param liczba_punktow Liczba punktów zapisanych w liście
+* @param *counter_1 Ilość zmian punktu sprawdzanego przy liczeniu odległości między miastami przy pracy alogrytmu
+* @param *counter_2 Ilość obliczonych i sprawdzonych odległości między miastami przy pracy algorytmu
+* @param *counter_3 Ilosc wykonań pętli wewnętrznej przy paracy algorytmu
+* @param Finalna długość trasy przebytej przez Komiwojażera.
+* @param *timer Czas pracy algorytmu.
+*
+*/
 
 void komiwojazer(struct list_node *head, int liczba_punktow, int *counter_1, int *counter_2, int *counter_3, float *lengthWay, double *timer){
     DWORD start = GetTickCount();
@@ -464,6 +606,15 @@ void komiwojazer(struct list_node *head, int liczba_punktow, int *counter_1, int
     input(1,1);
     system("cls");
 }
+
+/**
+* \brief Funkcja przykładowa algorytmu
+*
+* Funkcja ta pokazuje krok po kroku przebieg algorytmu i wykonane na nim operacje.
+* @param *head Wskaźnik na głowę listy z punktami.
+* @param liczba_punktow Liczba punktów zapisanych w liście.
+* @param Finalna długość trasy przebytej przez Komiwojażera.
+*/
 
 void komiwojazer_example(struct list_node *head, int liczba_punktow, float *lengthWay){
     system("cls");
@@ -533,21 +684,25 @@ void komiwojazer_example(struct list_node *head, int liczba_punktow, float *leng
     system("cls");
 }
 
+/**
+* \brief Algorytm główny - wyświetlanie
+*
+* Funkcja która uruchamia algorytm oraz wypisuje wyniki oraz drogę przebytą przez Komiwojażera.
+* Dodatkowo pokazuje graficznie przy użyciu biblioteki OpenGL drogę komiwojażera między miastami.
+*
+* @param *head Wskaźnik na głowę listy z punktami
+* @param liczba_punktow Liczba punktów zapisanych w liście
+* @param *counter_1 Ilość zmian punktu sprawdzanego przy liczeniu odległości między miastami przy pracy alogrytmu
+* @param *counter_2 Ilość obliczonych i sprawdzonych odległości między miastami przy pracy algorytmu
+* @param *counter_3 Ilosc wykonań pętli wewnętrznej przy paracy algorytmu
+* @param Finalna długość trasy przebytej przez Komiwojażera.
+* @param *timer Czas pracy algorytmu.
+*
+* @bug Funkcja wyłącza program po zamknięciu okna grafiki (bardzo prymitywna implementacja biblioteki i
+ nie przystosowany do grafiki kod)
+*/
+
 void komiwojazer_screen(struct list_node *head, int liczba_punktow, int *counter_1, int *counter_2, int *counter_3, float *lengthWay, double *timer){
-
-    maxVal = head->x;
-
-    struct list_node *temp = head;
-
-    while(temp->next != NULL){
-        if(abs(temp->x) > maxVal){
-            maxVal = temp->x;
-        }
-        if(abs(temp->y) > maxVal){
-            maxVal = temp->y;
-        }
-        temp = temp->next;
-    }
 
     DWORD start = GetTickCount();
     system("cls");
@@ -557,8 +712,9 @@ void komiwojazer_screen(struct list_node *head, int liczba_punktow, int *counter
     printf("Od którego miasta chcesz rozpocząć swoją wędrówkę? Wpisz jego numer: ");
     current_outP = get(head, (input(1, liczba_punktow))-1);
     system("cls");
-    x_screen[countz] = current_outP -> x;
-    y_screen[countz] = current_outP -> y;
+
+    push_back(&head_wyswietlanie, current_outP->x, current_outP->y, 0);
+
     while(head->next != NULL){
         current = head;
         float min;
@@ -581,9 +737,7 @@ void komiwojazer_screen(struct list_node *head, int liczba_punktow, int *counter
             *counter_1+=1;
         }
         printf("%d(%3d,%3d) -> %d(%3d,%3d) = %lf\n", current_outP -> No+1, current_outP -> x, current_outP -> y, current_inP -> No+1, current_inP -> x, current_inP -> y, min);
-        x_screen[countz+1] = current_inP -> x;
-        y_screen[countz+1] = current_inP -> y;
-        countz++;
+        push_back(&head_wyswietlanie, current_inP->x, current_inP->y, 0);
         pop_by_No(&head, current_outP -> No);
         current_outP = current_inP;
         *lengthWay += min;
@@ -605,10 +759,29 @@ void komiwojazer_screen(struct list_node *head, int liczba_punktow, int *counter
     glClearColor(1.0,1.0,1.0,1.0);
     glutMainLoop();
 }
-
+/**
+* \brief Funkcja wyświetlająca drogę komiwojażera przy użyciu biblioteki OpenGL
+*
+* Funkcja oblicza i rysuje na ekranie układ współrzednych, punkty (miasta) oraz drogę między nimi.
+* Z uwagi na słabą implementacje funkcja wymaga zmiennych globalnych przechowujących dane o punktach.
+*/
 void windowDisplay(){
-    glClear(GL_COLOR_BUFFER_BIT);
 
+    struct list_node *bufor = head_wyswietlanie;
+
+    int maxVal = head_wyswietlanie->x;
+    while(bufor != NULL){
+        if(abs(bufor->x) > maxVal){
+            maxVal = abs(bufor->x);
+        }
+        if(abs(bufor->y) > maxVal){
+            maxVal = abs(bufor->y);
+        }
+        bufor = bufor->next;
+    }
+    maxVal += 3;
+
+    glClear(GL_COLOR_BUFFER_BIT);
     glLineWidth(1.0);
     glColor4f(0.0,0.0,0.0,1);
     glBegin(GL_LINE_LOOP);
@@ -623,42 +796,42 @@ void windowDisplay(){
     glPointSize(5.0);
     glColor4f(0.0,0.0,1.0,1);
     glBegin(GL_POINTS);
-    glVertex2f((float)x_screen[0]/(float)maxVal,(float)y_screen[0]/(float)maxVal);
+    glVertex2f((float)head_wyswietlanie->x/(float)maxVal,(float)head_wyswietlanie->y/(float)maxVal);
     glEnd();
 
-    for(int i = 1; i < countz-1; i++){
+    bufor = head_wyswietlanie->next;
+
+    while(bufor != NULL){
         glPointSize(3.0);
         glColor4f(1.0,0.0,0.0,1);
         glBegin(GL_POINTS);
-        glVertex2f((float)x_screen[i]/(float)maxVal,(float)y_screen[i]/(float)maxVal);
+        glVertex2f((float)bufor->x/(float)maxVal,(float)bufor->y/(float)maxVal);
         glEnd();
+        bufor = bufor -> next;
     }
 
-    glPointSize(5.0);
-    glColor4f(1.0,0.0,0.0,1);
-    glBegin(GL_POINTS);
-    glVertex2f((float)x_screen[countz]/(float)maxVal,(float)y_screen[countz]/(float)maxVal);
-    glEnd();
+    bufor = head_wyswietlanie;
 
-    for(int i = 0; i < countz-1; i++){
+    while(bufor->next != NULL){
         glLineWidth(1.0);
         glColor4f(0.0,1.0,0.0, 1);
         glBegin(GL_LINE_LOOP);
-        glVertex2f((float)x_screen[i]/(float)maxVal,(float)y_screen[i]/(float)maxVal);
-        glVertex2f((float)x_screen[i+1]/(float)maxVal,(float)y_screen[i+1]/(float)maxVal);
+        glVertex2f((float)bufor->x/(float)maxVal,(float)bufor->y/(float)maxVal);
+        glVertex2f((float)bufor->next->x/(float)maxVal,(float)bufor->next->y/(float)maxVal);
         glEnd();
+        bufor = bufor -> next;
     }
-
-    glLineWidth(1.0);
-    glColor4f(0.0,1.0,0.0, 1);
-    glBegin(GL_LINE_LOOP);
-    glVertex2f((float)x_screen[countz-1]/(float)maxVal,(float)y_screen[countz-1]/(float)maxVal);
-    glVertex2f((float)x_screen[countz]/(float)maxVal,(float)y_screen[countz]/(float)maxVal);
-    glEnd();
 
     glutSwapBuffers();
 }
 
+/**
+* \brief Pytanie o wyświetlenie algorytmu
+*
+* Funkcja pytająca użytkownika czy chce wyświetlić algorytm graficznie czy tylko Tekstowo.
+*
+* @return 1 - tekstowo, 2 - graficznie.
+*/
 int wybor_wyswietlania(){
     system("cls");
     printf("Chcesz wyświetlić dane graficznie czy tekstowo?.\n");

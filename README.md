@@ -1,5 +1,6 @@
-#CZYTAJ TO
-Żeby zbuildował projekt z wyświetlaniem punktów trzeba dopisać do CMakeLists.txt to: (zamien nazwa_projektu na swoją)
+# README
+# WAZNE
+Żeby zbudować projekt z wyświetlaniem punktów trzeba dopisać do CMakeLists.txt to: (zamień nazwa_projektu na swoją)
 ````
 target_link_libraries(Nazwa_projektu -lOpenGL32 -lfreeGLUT)
 ````
@@ -7,11 +8,9 @@ oraz zainstalować FreeGLUT, przekopiuj po prostu pliki do C:/MinGW
 ````
 https://www.transmissionzero.co.uk/files/software/development/GLUT/freeglut-MinGW.zip
 ````
+Przed kompilacją zmienić kodowanie pliku na IBM852!
 
-#WAZNE
-EDYTUJ W UTF-8. DOPIERO PODCZAS OSTATNIEGO TESTOWEGO BUILDA ZAMIEN NA IBM852 ZEBY ZOBACZYC CZY POLSKIE ZNAKI DZIALAJĄ
-
-# 1 termin oddania pracy - w trakcie
+# 1 termin oddania pracy - gotowe
 
 - Ujednolicenie nazewnictwa wewnątrz programu
 - Testy w celu wykrycia ewentualnych błędów
